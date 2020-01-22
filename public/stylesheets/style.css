@@ -1,0 +1,41 @@
+#bodyResults {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  min-width: 100vh;
+  min-height: 100vh; }
+  #bodyResults div {
+    height: 80%; }
+
+#profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border: 1px solid black;
+  padding: 20px;
+  width: 15%;
+  min-height: 90vh; }
+  #profile img {
+    align-self: center;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: 50% 50%;
+    width: 60%;
+    height: 20%;
+    border: 1px black solid; }
+  #profile #big5 {
+    max-width: 100%; }
+
+#timesCharts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  justify-self: flex-end;
+  border: 1px solid black;
+  padding: 20px;
+  width: 70%; }
+  #timesCharts canvas {
+    max-width: 100%; }
+
+/*# sourceMappingURL=style.css.map */

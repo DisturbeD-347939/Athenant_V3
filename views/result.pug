@@ -1,0 +1,27 @@
+doctype html
+html
+    head
+        title Results
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        script(src="javascripts/jquery.js")
+        script(src="javascripts/Chart.js")
+        script.
+            var times = '#{times}';
+            var percentile = '#{percentile}';
+            var twitterid = '#{twitterid}'
+        script(src="javascripts/profileCharts.js")
+        script(src="javascripts/result.js")
+    body#bodyResults(onload= 'setupCharts(percentile, times)')
+        div#profile
+            img#profilePicture
+            h1 #{twitterid}
+            br
+            div#big5
+                h3 Big 5 Stats
+                canvas#big5Chart
+                p
+        div#timesCharts
+            h3 Times
+            button#changeDate(onclick='changeDate({id:twitterid, times:times})')
+            canvas#timesMonthChart
+            canvas#timesWeekdaysChart

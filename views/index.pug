@@ -1,0 +1,23 @@
+html
+
+  head
+
+    title #{title}
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src="javascripts/jquery.js")
+    script. 
+      var error = #{error}
+    script(src="javascripts/index.js")
+  body
+
+    h1= title
+    p Welcome to #{title}
+
+          h2 Check for yourself!
+          
+          p#error
+          form(method='POST' action='/result')
+            div.form-group
+              label(for='twitterid') Twitter ID:
+              input#twitterid(type='text', placeholder='Username' name='twitterid')
+            button.btn.btn-primary(type='submit') Sign up
