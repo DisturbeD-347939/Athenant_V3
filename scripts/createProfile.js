@@ -119,13 +119,19 @@ function getInfo(callback)
 
 function getImages(callback)
 {
-    var downloadStatus = [0,0,0,0,0];
+    var downloadStatus = [0,0,0,0];
 
     client.get('users/show', {screen_name: ID}, function(error, response)
     {
         console.log("Downloading...");
 
-        var banner = response["profile_banner_url"];
+        console.log(response["profile_banner_url"]);
+
+        var banner = "";
+        if(response["profile_banner_url"] != undefined)
+        {
+            banner = response["profile_banner_url"];
+        }
         var smallSize = response["profile_image_url"];
         var originalSize = smallSize.slice(0,smallSize.length-11) + ".jpg";
         var biggerSize = smallSize.slice(0,smallSize.length-11) + "_bigger.jpg";
@@ -147,14 +153,19 @@ function getImages(callback)
         {
             downloadStatus[3] = 1;
         })
-        download(banner, './users/' + ID + '/bannerPic.jpg', function()
+        if(banner != "")
         {
-            downloadStatus[4] = 1;
-        })
+            download(banner, './users/' + ID + '/bannerPic.jpg', function(){})
+        }
+        else
+        {
+            fs.createReadStream('./images/bannerPic.jpg').pipe(fs.createWriteStream('./users/' + ID + '/bannerPic.jpg'));
+        }
+        
 
         setTimeout(function()
         {
-            if(downloadStatus[0] == 1 && downloadStatus[1] == 1 && downloadStatus[2] == 1 && downloadStatus[3] == 1 && downloadStatus[4] == 1)
+            if(downloadStatus[0] == 1 && downloadStatus[1] == 1 && downloadStatus[2] == 1 && downloadStatus[3] == 1)
             {
                 console.log("Downloaded all pictures");
                 callback();
