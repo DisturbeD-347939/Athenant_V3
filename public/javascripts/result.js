@@ -45,7 +45,7 @@ function big5Click(event, array)
     }
 }
 
-function getImages()
+function getInfo()
 {
     $.ajax
     ({
@@ -55,8 +55,27 @@ function getImages()
         data: {"getImages": twitterid},
         success(data)
         {
+            console.log(data);
             images = data;
             $('#profilePicture').attr('src', images[0]);
+            if(images[4])
+            {
+                $('#bannerPicture').attr('src', images[4]);
+            }
         }
     });
-}
+    $.ajax
+    ({
+        url: '/result',
+        type: 'GET',
+        contentType: "application/json",
+        data: {"getNames": twitterid},
+        success(data)
+        {
+            console.log(data);
+            images = data;
+            $('#profilePicture').attr('src', images[0]);
+            $('#bannerPicture').attr('src', images[4]);
+        }
+    });
+} 
