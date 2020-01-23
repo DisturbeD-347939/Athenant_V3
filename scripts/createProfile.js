@@ -99,6 +99,24 @@ function getMentions()
         }
     })
 }
+
+function getInfo(callback)
+{
+    client.get('users/show', {screen_name: ID}, function(error, response)
+    {
+        var info = {};
+
+        info.name = response["name"];
+        info.location = response["location"];
+        info.following = response["followers_count"];
+        info.followers = response["friends_count"];
+        info.likes = response["favourites_count"];
+        info.posts = response["statuses_count"];
+
+        callback(info);
+    });
+}
+
 function getImages(callback)
 {
     var downloadStatus = [0,0,0,0,0];
