@@ -10,6 +10,7 @@ html
             var percentile = '#{percentile}';
             var twitterid = '#{twitterid}'
         script(src="javascripts/profileCharts.js")
+        script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbVsLYL_nF6ndA29xmQvDqkTIX6Fl5vAI&libraries=visualization")
         script(src="javascripts/result.js")
     body#bodyResults(onload= 'setupCharts(percentile, times)')
         div#profile
@@ -18,10 +19,17 @@ html
             br
             div#big5
                 h3 Big 5 Stats
-                canvas#big5Chart
-                p
+                div
         div#timesCharts
             h3 Times
             button#changeDate(onclick='changeDate({id:twitterid, times:times})')
             canvas#timesMonthChart
             canvas#timesWeekdaysChart
+            div#heatmap test
+            h3 test
+            h3 test
+            h3 test
+            h3 test
+            h3 test
+            h3 test
+            h3 test
