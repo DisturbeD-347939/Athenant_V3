@@ -186,14 +186,6 @@ function getTweets(callback)
     {
         var outputText = "";
 
-            /*Locations
-            if(tweets[i].place)
-            {
-                console.log("ID -> " + i + " | " + tweets[i].place.bounding_bo
-                x.coordinates);
-            }
-            */
-
         //Make them json
         var data = JSON.stringify(response, null, 2);
 
@@ -202,6 +194,7 @@ function getTweets(callback)
         outputText += "{ \"contentItems\" : [\n\n";
 
         var times = [];
+        var temp = [];
 
         //Take tweet text
         for(var i = 0; i < profileText.length;   i++)
