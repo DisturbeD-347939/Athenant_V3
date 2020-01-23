@@ -2,14 +2,29 @@ setTimeout(setup, 50);
 
 var images = [];
 
+setTimeout(function()
+{
+    $('#profilePicture').css({'height':$('#profilePicture').width()+'px'});
+    $('#bannerPicture').css({top: 0, left:0});
+    $('#bannerPicture').width($('#profile').width() + 80);
+    $('#bannerPicture').height($('#profilePicture').height()/2 + 60);
+}, 1000);
+
 $(window).resize(function()
 {
     $('#profilePicture').css({'height':$('#profilePicture').width()+'px'});
+    $('#bannerPicture').css({top: 0, left:0});
+    $('#bannerPicture').width($('#profile').width() + 80);
+    $('#bannerPicture').height($('#profilePicture').height()/2 + 60);
 })
 
 function setup()
 {
+    //Styling
     $('#profilePicture').css({'height':$('#profilePicture').width()+'px'});
+    $('#bannerPicture').css({top: 0, left:0});
+    $('#bannerPicture').width($('#profile').width() + 79);
+    $('#bannerPicture').height($('#profilePicture').height()/2 + 60);
 
     getImages(twitterid);
 }
