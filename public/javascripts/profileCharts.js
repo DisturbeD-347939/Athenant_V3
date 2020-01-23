@@ -40,39 +40,16 @@ function personalityChart(data)
         data[i] = Math.round(data[i]*100)/100;
     }
 
-    var big5 = document.getElementById('big5Chart');
-    new Chart(big5, 
+    var big5 = ['Openness', 'Conscientiousness', 'Extraversion', 'Agreeableness', 'Emotional range'];
+
+    for(var i = 0; i < big5.length; i++)
     {
-        type: 'horizontalBar',
-        data: 
-        {
-            labels: ['Openness', 'Conscientiousness', 'Extraversion', 'Agreeableness', 'Emotional range'],
-            datasets:
-            [{
-                label: 'Personality Traits',
-                data: data,
-                backgroundColor: 'rgba(0, 0, 255, 0.5)',
-                borderColor: 'rgba(255, 99, 132, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: 
-        {
-            scales: 
-            {
-                xAxes: 
-                [{
-                    ticks: 
-                    {
-                        suggestedMax: 1,
-                        suggestedMin: 0,
-                        beginAtZero: true
-                    }
-                }]
-            },
-            onClick: big5Click 
-        }
-    });
+        console.log("here");
+        var singleTrait = big5[i].replace(" ", "");
+        $('#big5 > div').append("<p>" + big5[i] + "</p><div class='backgroundProgressBar'><div id='" + singleTrait + "progressBar'><p id='" + singleTrait + "percentile'></p></div></div>");
+        $('#' + singleTrait + 'progressBar').width(data[i]*100 + '%');
+        $('#' + singleTrait + 'percentile').text(Math.round(data[i]*100) + '%');
+    }
 }
 
 function displayTimes(times)
@@ -108,7 +85,6 @@ function displayTimes(times)
 	    		labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December',],
                 datasets: 
                 [{
-	    			label: 'Tweets per month',
 	    			fill: false,
 	    			borderColor: 'red',
 	    			backgroundColor: 'red',
@@ -117,21 +93,17 @@ function displayTimes(times)
 	    	},
             options: 
             {
-                title: 
-                {
-	    			display: true,
-	    			text: 'Tweets per month in ' + new Date().getFullYear()
-                },
                 scales: 
                 {
                     yAxes: 
                     [{
                         ticks: 
                         {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            precision:0
                         }
                     }]
-                },
+                }
 	    	}
         });
         
@@ -157,7 +129,6 @@ function displayTimes(times)
 	    		labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
                 datasets: 
                 [{
-	    			label: 'Tweets per weekdays',
 	    			fill: false,
 	    			borderColor: 'red',
 	    			backgroundColor: 'red',
@@ -166,18 +137,14 @@ function displayTimes(times)
 	    	},
             options: 
             {
-                title: 
-                {
-	    			display: true,
-	    			text: 'Tweets per month in ' + new Date().getFullYear()
-                },
                 scales: 
                 {
                     yAxes: 
                     [{
                         ticks: 
                         {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            precision:0
                         }
                     }]
                 }
