@@ -14,8 +14,10 @@ html
         script(src="javascripts/result.js")
     body#bodyResults(onload= 'setupCharts(percentile, times)')
         div#profile
+            img#bannerPicture
             img#profilePicture
-            h1 #{twitterid}
+            h1
+            h3 @#{twitterid}
             br
             div#big5
                 h3 Big 5 Stats
