@@ -7,6 +7,7 @@ var request = require('request');
 //Variables
 var text = "";
 var ID = "default";
+var info = {};
 
 //Keys for authentication
 var Credentials = fs.readFileSync('./Keys.json', 'utf-8');
@@ -42,23 +43,37 @@ module.exports =
             fs.mkdirSync('./users/' + ID);
         }
 
-        getImages(function(e){console.log("Got all pictures")});
-    
-        getTweets(function()
+        getImages(function()
         {
-            getBig5(function(data)
+            console.log("Got all pictures");
+
+            getInfo(function(data)
             {
-                if(data)
+                console.log("Got all info");
+                info = data;
+
+                getMentions();
+
+                getTweets(function()
                 {
-                    console.log("Created big 5");
-                    callback(1);
-                }
-                else
-                {
-                    callback(0);
-                }
-            })
-        }) 
+                    getBig5(function(data)
+                    {
+                        if(data)
+                        {
+                            fs.writeFileSync('./users/' + ID + '/info.json', JSON.stringify(info));
+                            console.log(info);
+                            callback(1);
+                        }
+                        else
+                        {
+                            callback(0);
+                        }
+                    })
+                }) 
+            });
+        });
+        
+        
     }
 }
 
