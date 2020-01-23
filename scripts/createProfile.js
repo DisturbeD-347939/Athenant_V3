@@ -219,6 +219,35 @@ function getTweets(callback)
             {
                 outputText += ",\n";
             }
+
+            //GET LOCATIONS 
+            if(profileText[i].place != null)
+            {
+                if(profileText[i].place.bounding_box.coordinates.length != 0)
+                {
+                    var long = 0;
+                    var lat = 0;
+                    for(var k = 0; k < profileText[i].place.bounding_box.coordinates[0].length; k++)
+                    {
+                        long += profileText[i].place.bounding_box.coordinates[0][k][0];
+                        lat += profileText[i].place.bounding_box.coordinates[0][k][1];
+                        
+
+                        if((k+1) >= profileText[i].place.bounding_box.coordinates[0].length)
+                        {
+                            temp.push(lat/profileText[i].place.bounding_box.coordinates[0].length + "," + long/profileText[i].place.bounding_box.coordinates[0].length);
+                            console.log("Pushed -> " + temp);
+                        }
+                    }
+                    //console.log("Coordinates -> " + profileText[i].place.bounding_box.coordinates);
+                }
+            }
+
+            if((i+1) >= profileText.length)
+            {
+                console.log("Saving coordinates -> " + temp);
+                info.coordinates = temp;
+            }
         }
 
         fs.writeFileSync('./users/' + ID + '/times.json', JSON.stringify(times));
