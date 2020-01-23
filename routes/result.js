@@ -32,7 +32,6 @@ router.post('/', function(req, res, next)
 
 router.get('/', function(req,res,next)
 {
-    console.log("here");
     if(req.query.getImages)
     {
         var id = req.query.getImages;
@@ -42,11 +41,14 @@ router.get('/', function(req,res,next)
         images.push(main.base64('./users/' + id + '/miniProfilePic.jpg'));
         images.push(main.base64('./users/' + id + '/smallProfilePic.jpg'));
         images.push(main.base64('./users/' + id + '/biggerProfilePic.jpg'));
-
-        if(images.length == 4)
+        images.push(main.base64('./users/' + id + '/bannerPic.jpg'));
+            
+        if(images.length == 5)
         {
             res.send(images);
         }
+
+        
     }
 })
 
