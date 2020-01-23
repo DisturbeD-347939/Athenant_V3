@@ -26,6 +26,7 @@ function setup()
     $('#bannerPicture').width($('#profile').width() + 79);
     $('#bannerPicture').height($('#profilePicture').height()/2 + 60);
     $('#profile').css({position: 'sticky'});
+    window.scrollTo(0, 0);
 
     getImages(twitterid);
 }
