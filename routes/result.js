@@ -54,7 +54,10 @@ router.get('/', function(req,res,next)
         }
     }
 
-        
+    if(req.query.getInfo)
+    {
+        var id = req.query.getInfo;
+        res.send(JSON.parse(fs.readFileSync('./users/' + id + '/info.json')));
     }
 })
 
