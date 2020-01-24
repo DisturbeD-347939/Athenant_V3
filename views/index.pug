@@ -13,11 +13,11 @@ html
     h1= title
     p Welcome to #{title}
 
-          h2 Check for yourself!
+          h2 Enter your Twitter Handle!
           
           p#error
           form(method='POST' action='/result')
             div.form-group
-              label(for='twitterid') Twitter ID:
+              label(for='twitterid') @:
               input#twitterid(type='text', placeholder='Username' name='twitterid')
-            button.btn.btn-primary(type='submit') Sign up
+            button.btn.btn-primary(type='submit') Check your information!
