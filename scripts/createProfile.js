@@ -173,84 +173,126 @@ function getImages(callback)
 
 function getTweets(callback)
 {
-    //Get tweets from user timeline
+    var id = 0;
+    var allTweets = [];
+    var outputText = "";
     client.get('statuses/user_timeline', {screen_name: ID, count: '1000', include_rts: 'false'}, function(error, response)
-    {
-        var outputText = "";
-
+    {   
         //Make them json
         var data = JSON.stringify(response, null, 2);
-
         //Clean them
         var profileText = JSON.parse(data);
-        outputText += "{ \"contentItems\" : [\n\n";
+        allTweets.push(profileText);
+        id = profileText[profileText.length-1].id;
 
-        var times = [];
-        var temp = [];
+        client.get('statuses/user_timeline', {screen_name: ID, count: '200', include_rts: 'false', max_id: id}, function(error, response)
+        {   
+            var data = JSON.stringify(response, null, 2);
+            var profileText = JSON.parse(data);
+            id = profileText[profileText.length-1].id;
+            allTweets.push(profileText);
 
-        //Take tweet text
-        for(var i = 0; i < profileText.length;   i++)
-        {
-            times.push(profileText[i].created_at.split(" "));
+            client.get('statuses/user_timeline', {screen_name: ID, count: '200', include_rts: 'false', max_id: id}, function(error, response)
+            {   
+                var data = JSON.stringify(response, null, 2);
+                var profileText = JSON.parse(data);
+                allTweets.push(profileText);
+                id = profileText[profileText.length-1].id;
 
-            text =  profileText[i].text;
-            text = text.replace(/(\r\n|\n|\r)/gm," ");
-            text = text.replace(/"/g, '');
-            
-            var parsedUnixTime = new Date(profileText[i].created_at).getUnixTime();
-            outputText += "{\n\t\"content\":\"" + text + "\",\n\t\"contenttype\": \"text/plain\",\n\t\"created\":" + parsedUnixTime + ",\n\t\"id\":\"" + profileText[i].id + "\",\n\t\"language\":\"en\"\n}";
-            
-            if((i+1) != profileText.length)
-            {
-                outputText += ",\n";
-            }
+                client.get('statuses/user_timeline', {screen_name: ID, count: '200', include_rts: 'false', max_id: id}, function(error, response)
+                {   
+                    var data = JSON.stringify(response, null, 2);
+                    var profileText = JSON.parse(data);
+                    allTweets.push(profileText);
+                    id = profileText[profileText.length-1].id;
 
-            //GET LOCATIONS 
-            if(profileText[i].place != null)
-            {
-                if(profileText[i].place.bounding_box.coordinates.length != 0)
-                {
-                    var long = 0;
-                    var lat = 0;
-                    for(var k = 0; k < profileText[i].place.bounding_box.coordinates[0].length; k++)
-                    {
-                        long += profileText[i].place.bounding_box.coordinates[0][k][0];
-                        lat += profileText[i].place.bounding_box.coordinates[0][k][1];
-                        
+                    client.get('statuses/user_timeline', {screen_name: ID, count: '200', include_rts: 'false', max_id: id}, function(error, response)
+                    {   
+                        var data = JSON.stringify(response, null, 2);
+                        var profileText = JSON.parse(data);
+                        allTweets.push(profileText);
+                        id = profileText[profileText.length-1].id;
 
-                        if((k+1) >= profileText[i].place.bounding_box.coordinates[0].length)
+                        //console.log(allTweets[allTweets.length-1][allTweets[allTweets.length-1].length-1].created_at);
+
+                        profileText = allTweets;
+
+                        outputText += "{ \"contentItems\" : [\n\n";
+
+                        var times = [];
+                        var temp = [];
+
+                        //Take tweet text
+                        for(var j = 0; j < profileText.length; j++)
                         {
-                            temp.push(lat/profileText[i].place.bounding_box.coordinates[0].length + "," + long/profileText[i].place.bounding_box.coordinates[0].length);
-                            console.log("Pushed -> " + temp);
+                            for(var i = 0; i < profileText[j].length;   i++)
+                            {
+                                //GET TIMES
+                                times.push(profileText[j][i].created_at.split(" "));
+                            
+                                text =  profileText[j][i].text;
+                                text = text.replace(/(\r\n|\n|\r)/gm," ");
+                                text = text.replace(/"/g, '');
+
+                                var parsedUnixTime = new Date(profileText[j][i].created_at).getUnixTime();
+                                outputText += "{\n\t\"content\":\"" + text + "\",\n\t\"contenttype\": \"text/plain\",\n\t\"created\":" + parsedUnixTime + ",\n\t\"id\":\"" + profileText[j][i].id + "\",\n\t\"language\":\"en\"\n}";
+
+                                if((i+1) != profileText[j].length)
+                                {
+                                    outputText += ",\n";
+                                }
+                            
+                                //GET LOCATIONS 
+                                if(profileText[j][i].place != null)
+                                {
+                                    if(profileText[j][i].place.bounding_box.coordinates.length != 0)
+                                    {
+                                        var long = 0;
+                                        var lat = 0;
+                                        for(var k = 0; k < profileText[j][i].place.bounding_box.coordinates[0].length; k++)
+                                        {
+                                            long += profileText[j][i].place.bounding_box.coordinates[0][k][0];
+                                            lat += profileText[j][i].place.bounding_box.coordinates[0][k][1];
+
+                                        
+                                            if((k+1) >= profileText[j][i].place.bounding_box.coordinates[0].length)
+                                            {
+                                                temp.push(lat/profileText[j][i].place.bounding_box.coordinates[0].length + "," + long/profileText[j][i].place.bounding_box.coordinates[0].length);
+                                            }
+                                        }
+                                    }
+                                }
+                            
+                                if((i+1) >= profileText[j].length && (j+1) >= profileText.length)
+                                {
+                                    info.coordinates = temp;
+                                }
+                            }
+                            if((j+1) != profileText.length)
+                            {
+                                outputText += ",\n";
+                            }
                         }
-                    }
-                    //console.log("Coordinates -> " + profileText[i].place.bounding_box.coordinates);
-                }
-            }
 
-            if((i+1) >= profileText.length)
-            {
-                console.log("Saving coordinates -> " + temp);
-                info.coordinates = temp;
-            }
-        }
-
-        fs.writeFileSync('./users/' + ID + '/times.json', JSON.stringify(times));
-        outputText += "]}";
-        fs.writeFileSync('./users/' + ID + '/profile.json', outputText);
-
-        setTimeout(function()
-        {
-            if(fs.existsSync('./users/' + ID + '/times.json') && fs.existsSync('./users/' + ID + '/profile.json'))
-            {
-                callback(1);
-            }
-            else
-            {
-                callback(0);
-            }
-        },50)
-    });
+                        setTimeout(function()
+                        {
+                            fs.writeFileSync('./users/' + ID + '/times.json', JSON.stringify(times));
+                            outputText += "]}";
+                            fs.writeFileSync('./users/' + ID + '/profile.json', outputText);
+                            if(fs.existsSync('./users/' + ID + '/times.json') && fs.existsSync('./users/' + ID + '/profile.json'))
+                            {
+                                callback(1);
+                            }
+                            else
+                            {
+                                callback(0);
+                            }
+                        },1000)
+                    });
+                });
+            });
+        });
+    })
 }
 
 function getBig5(callback)
