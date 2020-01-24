@@ -49,6 +49,52 @@ $(document).ready(function()
         $(this).attr("src", "/images/forwardArrow.png");
     });
 });
+
+function setup()
+{
+    getInfo(function(data)
+    {
+
+        var list = [];
+        for(var i = 0; i < data.commonWords.length; i++)
+        {
+            list.push([data.commonWords[i]["token"], data.commonWords[i]["count"]]);
+            if(i+1 >= data.commonWords.length)
+            {
+                WordCloud(document.getElementById('wordCloudCanvas'), { list: list, fontWeight: 'bold', color: 'random-dark', wait: '100', shuffle: true, minSize: "30px"});
+            }
+        }
+
+        var heatmapData = [];
+
+        if(!data.coordinates.length)
+        {
+            $('#heatmap').hide();
+        }
+
+        for(var i = 0; i < data.coordinates.length; i++)
+        {
+            var split = data.coordinates[i].split(",");
+            
+            heatmapData.push(new google.maps.LatLng(split[0], split[1]));
+        }
+
+        var heatmap = new google.maps.visualization.HeatmapLayer
+        ({
+            
+          data: heatmapData
+        });
+
+        map = new google.maps.Map(document.getElementById('heatmapMap'), 
+        {
+          center: new google.maps.LatLng(51.3811, 2.3590),
+          zoom: 2,
+          mapTypeId: 'roadmap',
+        });
+
+        heatmap.setMap(map);
+    })
+    
 }
 
 //Show further information
