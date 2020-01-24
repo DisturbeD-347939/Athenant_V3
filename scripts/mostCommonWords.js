@@ -1,4 +1,3 @@
-var mostCommonWords = require('./mostCommonWords.js.js');
 var common = require('common-words');
 var mostCommon = require('most-common');
 
