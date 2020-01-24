@@ -128,10 +128,6 @@ function getImages(callback)
 
     client.get('users/show', {screen_name: ID}, function(error, response)
     {
-        console.log("Downloading...");
-
-        console.log(response["profile_banner_url"]);
-
         var banner = "";
         if(response["profile_banner_url"] != undefined)
         {
