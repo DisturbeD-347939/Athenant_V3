@@ -7,7 +7,11 @@ var fs = require ('fs');
 
 router.post('/', function(req, res, next)
 {
-    //var times = JSON.parse(fs.readFileSync('./users/' + res.req.body.twitterid + "/times.json"));
+    if(res.req.body.twitterid[0] == "@")
+    {
+        res.req.body.twitterid = res.req.body.twitterid.substring(1, res.req.body.twitterid.length);
+    }
+    console.log("Requesting for " + res.req.body.twitterid);
     twitter.getData(res.req.body.twitterid, function(percentile, times, error)
     {
         if(error)
