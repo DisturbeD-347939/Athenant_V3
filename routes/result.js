@@ -23,6 +23,7 @@ router.post('/', function(req, res, next)
         }
         else
         {
+            console.log("Returning results from " + res.req.body.twitterid);
             res.render('result', 
             {
                 percentile: percentile, 
@@ -51,6 +52,7 @@ router.get('/', function(req,res,next)
         {
             res.send(images);
         }
+    }
 
         
     }
