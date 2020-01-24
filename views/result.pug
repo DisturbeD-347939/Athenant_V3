@@ -22,16 +22,16 @@ html
             div#big5
                 h3 Big 5 Stats
                 div
-        div#timesCharts
-            h3 Times
-            button#changeDate(onclick='changeDate({id:twitterid, times:times})')
-            canvas#timesMonthChart
-            canvas#timesWeekdaysChart
-            div#heatmap test
-            h3 test
-            h3 test
-            h3 test
-            h3 test
-            h3 test
-            h3 test
-            h3 test
+        div#results
+            div#times
+                div#monthChart
+                    img.backYear(src="/images/backArrow.png" onclick='changeDate({id:twitterid, times:times, graph:"month", direction:"back"})')
+                    canvas#timesMonthChart
+                    img.forwardYear(src="/images/forwardArrow.png" onclick='changeDate({id:twitterid, times:times, graph:"month", direction:"forward"})')
+                div#weekChart
+                    img.backYear(src="/images/backArrow.png" onclick='changeDate({id:twitterid, times:times, graph:"week", direction:"back"})')
+                    canvas#timesWeekdaysChart
+                    img.forwardYear(src="/images/forwardArrow.png" onclick='changeDate({id:twitterid, times:times, graph:"week", direction:"forward"})')
+            div#heatmapMap
+            div#wordCloud
+                canvas#wordCloudCanvas
