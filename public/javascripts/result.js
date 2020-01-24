@@ -111,7 +111,7 @@ function big5Click(event, array)
     }
 }
 
-function getInfo()
+function getInfo(callback)
 {
     $.ajax
     ({
@@ -135,13 +135,10 @@ function getInfo()
         url: '/result',
         type: 'GET',
         contentType: "application/json",
-        data: {"getNames": twitterid},
+        data: {"getInfo": twitterid},
         success(data)
         {
-            console.log(data);
-            images = data;
-            $('#profilePicture').attr('src', images[0]);
-            $('#bannerPicture').attr('src', images[4]);
+            callback(data);
         }
     });
 } 
