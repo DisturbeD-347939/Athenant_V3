@@ -45,15 +45,11 @@ module.exports =
 
         getImages(function()
         {
-            console.log("Got all pictures");
 
             getInfo(function(data)
             {
-                console.log("Got all info");
                 info = data;
-
                 getMentions();
-
                 getTweets(function()
                 {
                     getBig5(function(data)
@@ -61,7 +57,6 @@ module.exports =
                         if(data)
                         {
                             fs.writeFileSync('./users/' + ID + '/info.json', JSON.stringify(info));
-                            console.log(info);
                             callback(1);
                         }
                         else
@@ -69,7 +64,6 @@ module.exports =
                             callback(0);
                         }
                     })
-                }) 
             });
         });
         
@@ -167,12 +161,10 @@ function getImages(callback)
         {
             if(downloadStatus[0] == 1 && downloadStatus[1] == 1 && downloadStatus[2] == 1 && downloadStatus[3] == 1)
             {
-                console.log("Downloaded all pictures");
                 callback();
             }
             else
             {
-                console.log("Failed to download");
                 callback();
             }
         },1000)
@@ -282,7 +274,6 @@ function getBig5(callback)
         } 
         else //If everything works out well we take the big 5 traits and adjust them from 0-1 to 1-20
         { 
-            console.log(ID);
             fs.writeFileSync('./users/' + ID + '/watsonOutputRaw.json', JSON.stringify(profile, null, 2));
             callback(1);
         }

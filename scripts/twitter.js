@@ -42,7 +42,6 @@ function getTwitter(id, callback)
             }
             else
             {
-                console.log("Got twitter info");
                 callback(1);
             }
         });

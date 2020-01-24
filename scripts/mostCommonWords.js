@@ -13,24 +13,13 @@ module.exports =
             content += profileData['contentItems'][i]["content"] + " ";
             if((i+1) >= profileData['contentItems'].length)
             {
-                console.log(content);
-                console.log("-------------------------------------------------------");
                 content = content.split(" ");
-                console.log(content);
-                console.log("-------------------------------------------------------");
-                console.log(content.length);
                 for(var k = 0; k < content.length; k++)
                 {
                     content[k] = content[k].replace(/\\/, "");
                     if((k+1) >= content.length)
                     {
-                        console.log(content);
-                        console.log("-------------------------------------------------------");
                         content = removeCommonWords(content, common);
-                        console.log(content);
-                        console.log("-------------------------------------------------------");
-                        content = mostCommon(content, 15);
-                        console.log(content[0].token);
                     }
                 }
             }
