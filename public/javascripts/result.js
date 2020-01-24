@@ -2,13 +2,13 @@ setTimeout(setup, 50);
 
 var images = [];
 
-setTimeout(function()
+setInterval(function()
 {
     $('#profilePicture').css({'height':$('#profilePicture').width()+'px'});
     $('#bannerPicture').css({top: 0, left:0});
     $('#bannerPicture').width($('#profile').width() + 80);
     $('#bannerPicture').height($('#profilePicture').height()/2 + 60);
-}, 1000);
+}, 3000);
 
 $(window).resize(function()
 {
