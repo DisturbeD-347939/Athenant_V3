@@ -30,6 +30,25 @@ $(document).ready(function()
     $('#profile').css({position: 'sticky'});
     window.scrollTo(0, 0);
 
+    //HOVERS
+    $('.backYear').hover(function()
+    {
+        $(this).attr("src", "/images/backArrowHover.png");
+    },
+    function()
+    {
+        $(this).attr("src", "/images/backArrow.png");
+    });
+
+    $('.forwardYear').hover(function()
+    {
+        $(this).attr("src", "/images/forwardArrowHover.png");
+    },
+    function()
+    {
+        $(this).attr("src", "/images/forwardArrow.png");
+    });
+});
 }
 
 //Show further information
