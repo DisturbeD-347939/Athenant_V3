@@ -3,6 +3,7 @@ var Twitter = require('twitter');
 var fs = require('fs');
 var request = require('request');
 
+var commonWords = require('../scripts/mostCommonWords');
 
 //Variables
 var text = "";
@@ -50,6 +51,7 @@ module.exports =
             {
                 info = data;
                 getMentions();
+                getCommonWords(ID);
                 getTweets(function()
                 {
                     getBig5(function(data)
@@ -64,11 +66,20 @@ module.exports =
                             callback(0);
                         }
                     })
+                })
             });
         });
         
         
     }
+}
+
+function getCommonWords(ID)
+{
+    commonWords.getMostCommonWords(ID, function(data)
+    {
+        info.commonWords = data;
+    });
 }
 
 function getMentions()
