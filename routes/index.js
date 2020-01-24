@@ -6,7 +6,8 @@ var twitter = require('../scripts/twitter');
 /* GET home page. */
 router.get('/', function(req, res, next)
 {
-  res.render('index', { title: 'Testing' , error: 0});
+  console.log(req.connection.remoteAddress + " has connected");
+  res.render('index', { title: 'Athenant' , error: 0});
 });
 
 /*router.post('/result', function(req, res, next)
