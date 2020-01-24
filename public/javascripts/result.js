@@ -18,17 +18,18 @@ $(window).resize(function()
     $('#bannerPicture').height($('#profilePicture').height()/2 + 60);
 })
 
-function setup()
+$(document).ready(function() 
 {
-    //Styling
     $('#profilePicture').css({'height':$('#profilePicture').width()+'px'});
     $('#bannerPicture').css({top: 0, left:0});
     $('#bannerPicture').width($('#profile').width() + 79);
     $('#bannerPicture').height($('#profilePicture').height()/2 + 60);
+    $('#times > div > img').height($('#times > div > button').width());
+    $('#heatmapMap').height($('#heatmapMap').width()/2);
+    $('#wordCloudCanvas').height($('#wordCloudCanvas').width());
     $('#profile').css({position: 'sticky'});
     window.scrollTo(0, 0);
 
-    getImages(twitterid);
 }
 
 //Show further information
