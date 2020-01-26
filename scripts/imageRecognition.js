@@ -19,26 +19,24 @@ module.exports =
 {
     classify: function(path, callback)
     {
+        var params = 
         {
-            var params = 
+            image_file: fs.createReadStream(path)
+        }
+
+        visualRecognition.classify(params, function(err, res)
+        {
+            if(err)
             {
-                image_file: fs.createReadStream(path)
+                console.log(err);
+                callback("err");
             }
-    
-            visualRecognition.classify(params, function(err, res)
+            else 
             {
-                if(err)
-                {
-                    console.log(err);
-                    callback("err");
-                }
-                else 
-                {
-                    var data = JSON.stringify(res, null, 2);
-                    data = JSON.parse(data);
-                    callback(data);
-                }
-            });
+                var data = JSON.stringify(res, null, 2);
+                data = JSON.parse(data);
+                callback(data);
+            }
         });
     },
     getTags: function(data, callback)
