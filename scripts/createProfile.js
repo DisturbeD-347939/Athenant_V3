@@ -48,7 +48,25 @@ module.exports =
         }
 
         getImages(function()
+        if (!fs.existsSync('./users/' + ID + '/images'))
         {
+            fs.mkdirSync('./users/' + ID + '/images');
+        }
+        else
+        {
+            fs.readdir('./users/' + ID + '/images', (err, files) => 
+            {
+                if (err) throw err;
+            
+                for (const file of files) 
+                {
+                    fs.unlink(path.join('./users/' + ID + '/images', file), err => 
+                    {
+                        if (err) throw err;
+                    });
+                }
+            });
+        }
 
             getInfo(function(data)
             {
