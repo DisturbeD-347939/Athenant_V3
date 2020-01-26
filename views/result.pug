@@ -5,6 +5,8 @@ html
         meta(charset="UTF-8")
         link(rel='stylesheet', href='/stylesheets/style.css')
         script(src="javascripts/jquery.js")
+        script(src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js")
+        script(src="https://cdn.anychart.com/releases/v8/js/anychart-tag-cloud.min.js")
         script(src="javascripts/Chart.js")
         script.
             var times = '#{times}';
@@ -12,8 +14,8 @@ html
             var twitterid = '#{twitterid}'
         script(src="javascripts/profileCharts.js")
         script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbVsLYL_nF6ndA29xmQvDqkTIX6Fl5vAI&libraries=visualization")
-        script(src="javascripts/result.js")
         script(src='javascripts/wordList.js')
+        script(src="javascripts/result.js")
         link(rel="shortcut icon", type="image/png", href="/images/favicon.png")
     body#bodyResults(onload= 'setupCharts(percentile, times)')
         div#profile
