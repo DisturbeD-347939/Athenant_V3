@@ -126,29 +126,15 @@ function parseImageTags()
     });
 }
 
-function getMentions()
 function analyzeImages(callback)
 {
-    client.get('statuses/mentions_timeline', {screen_name: ID}, function(error, response)
     info.imageTags = "";
     IR.classify('./users/' + ID + '/images.zip', function(imageInfo)
     {
-        var temp = [];
-        var tempMentions = [];
-        for(var i = 0; i < response.length; i++)
         IR.getTags(imageInfo, function(response)
         {
-            tempMentions.push(response[i]["text"]);
-            response[i]["text"] = response[i]["text"].toLowerCase();
-            if(response[i]["text"].includes("happy birthday") || response[i]["text"].includes("hb!") || response[i]["text"].includes("hb") || response[i]["text"].includes("happy birthday!") || response[i]["text"].includes("happy bday") || response[i]["text"].includes("happy bday!"))
-            {
-                temp.push(response[i]["created_at"]);    
-            }
-            if((i+1) >= response.length)
             for(var i = 0; i < response.length; i++)
             {
-                info.mentions = tempMentions;
-                info.birthday = temp;
                 info.imageTags += response[i] + ",";
                 if(i+1 >= response.length)
                 {
@@ -156,7 +142,6 @@ function analyzeImages(callback)
                     callback();
                 }
             }
-        }
         })
     })
 }
