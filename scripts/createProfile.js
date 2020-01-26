@@ -12,6 +12,7 @@ var zipper = require('zip-local');
 var text = "";
 var ID = "default";
 var info = {};
+var imagesDownloaded = 0;
 
 //Keys for authentication
 var Credentials = fs.readFileSync('./Keys.json', 'utf-8');
@@ -29,9 +30,9 @@ var client = new Twitter
 //Authentication into the Personality Insight API
 var personalityInsights = new PersonalityInsightsV3
 ({
-    version: ParsedCredentials.ibm[0].version,
-    iam_apikey: ParsedCredentials.ibm[0].iam_apikey,
-    url: ParsedCredentials.ibm[0].url,
+    version: ParsedCredentials.ibm[1].version,
+    iam_apikey: ParsedCredentials.ibm[1].iam_apikey,
+    url: ParsedCredentials.ibm[1].url,
 });
 
 module.exports = 
@@ -47,7 +48,6 @@ module.exports =
             fs.mkdirSync('./users/' + ID);
         }
 
-        getImages(function()
         if (!fs.existsSync('./users/' + ID + '/images'))
         {
             fs.mkdirSync('./users/' + ID + '/images');
@@ -162,10 +162,10 @@ function getInfo(callback)
 
         info.name = response["name"];
         info.location = response["location"];
-        info.following = response["followers_count"];
-        info.followers = response["friends_count"];
-        info.likes = response["favourites_count"];
-        info.posts = response["statuses_count"];
+        info.following = main.formatNumber(response["friends_count"]);
+        info.followers = main.formatNumber(response["followers_count"]);
+        info.likes = main.formatNumber(response["favourites_count"]);
+        info.posts = main.formatNumber(response["statuses_count"]);
 
         callback(info);
     });
@@ -240,7 +240,6 @@ function getTweets(callback)
         var profileText = JSON.parse(data);
         allTweets.push(profileText);
         id = profileText[profileText.length-1].id;
-
         client.get('statuses/user_timeline', {screen_name: ID, count: '200', include_rts: 'false', max_id: id}, function(error, response)
         {   
             var data = JSON.stringify(response, null, 2);
@@ -320,7 +319,6 @@ function getTweets(callback)
                                         {
                                             long += profileText[j][i].place.bounding_box.coordinates[0][k][0];
                                             lat += profileText[j][i].place.bounding_box.coordinates[0][k][1];
-
                                         
                                             if((k+1) >= profileText[j][i].place.bounding_box.coordinates[0].length)
                                             {

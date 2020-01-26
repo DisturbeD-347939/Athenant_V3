@@ -43,6 +43,7 @@ module.exports =
     {
         var tags = [];
         var finalTags = [];
+        console.log(data);
 
         for(var j = 0; j < data["images"].length; j++)
         {

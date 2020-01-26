@@ -30,7 +30,7 @@ setInterval(function()
                             chart.colorRange().length('80%');
                             chart.container("wordCloudTags");
                             chart.draw();
-                            setImmediate(function(){ $('.anychart-credits').hide(); });
+                            //setImmediate(function(){ $('.anychart-credits').hide(); });
                         }
                     }
                 }
@@ -133,22 +133,6 @@ function setup()
             }
         }, 100);
 
-        var list = [];
-        for(var i = 0; i < data.commonWords.length; i++)
-        {
-            list.push([data.commonWords[i]["token"], data.commonWords[i]["count"]]);
-            if(i+1 >= data.commonWords.length)
-            {
-                var chart = anychart.tagCloud(list);
-                chart.title(list.length + ' most common words')// enable a color range
-                chart.angles([0]);
-                chart.colorRange().length('80%');
-                chart.container("wordCloudWords");
-                chart.draw();
-                setImmediate(function(){ $('.anychart-credits').hide(); });
-            }
-        }
-
         var heatmapData = [];
 
         if(!data.coordinates.length)
@@ -176,6 +160,23 @@ function setup()
         });
 
         heatmap.setMap(map);
+        
+        var list = [];
+        for(var i = 0; i < data.commonWords.length; i++)
+        {
+            list.push([data.commonWords[i]["token"], data.commonWords[i]["count"]]);
+            if(i+1 >= data.commonWords.length)
+            {
+                console.log(list);
+                var chart = anychart.tagCloud(list);
+                chart.title(list.length + ' most common words')// enable a color range
+                chart.angles([0]);
+                chart.colorRange().length('80%');
+                chart.container("wordCloudWords");
+                chart.draw();
+                setImmediate(function(){ $('.anychart-credits').hide(); });
+            }
+        }
     })
     
 }
@@ -206,6 +207,7 @@ function getInfo(callback)
         data: {"getInfo": twitterid},
         success(data)
         {
+            console.log(data);
             callback(data);
         }
     });
