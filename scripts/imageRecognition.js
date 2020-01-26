@@ -43,23 +43,34 @@ module.exports =
     {
         var tags = [];
         var finalTags = [];
-        for(var i = 0; i < 3; i++)
+
+        for(var j = 0; j < data["images"].length; j++)
         {
-            tags.push("#" + data.images[0].classifiers[0].classes[i].class);
-        }
-        for(var i = 0; i < tags.length; i++)
-        {
-            tags[i] = tags[i].split(/(?:,| )+/); 
-            for(var j = 0; j < tags[i].length; j++)
+            if(data["images"][j].classifiers && data["images"][j].classifiers.length)
             {
-                if(tags[i][j].charAt(0) == "#")
+                if(data["images"][j].classifiers[0].classes && data["images"][j].classifiers[0].classes.length)
                 {
-                    finalTags.push(tags[i][j]);
+                    for(var i = 0; i < data["images"][j].classifiers[0].classes.length; i++)
+                    {
+                        tags.push(data["images"][j].classifiers[0].classes[i].class);
+                    }
                 }
             }
-            
+            if(j+1 >= data["images"].length)
+            {
+                for(var i = 0; i < tags.length; i++)
+                {
+                    tags[i] = tags[i].split(/(?:,| )+/); 
+                    for(var k = 0; k < tags[i].length; k++)
+                    {
+                        finalTags.push(tags[i][k]);
+                    }
+                    if(i+1 >= tags.length)
+                    {
+                        callback(finalTags);
+                    }
+                }
+            }
         }
-        console.log(finalTags);
-        callback(finalTags);
     }
 }
