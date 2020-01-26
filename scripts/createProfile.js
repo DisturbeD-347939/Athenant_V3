@@ -280,6 +280,7 @@ function getTweets(callback)
                         var birthday = [];
 
                         //Take tweet text
+                        console.log("Getting coordinates/images from " + ID);
                         for(var j = 0; j < profileText.length; j++)
                         {
                             for(var i = 0; i < profileText[j].length;   i++)
@@ -326,6 +327,16 @@ function getTweets(callback)
                                                 temp.push(lat/profileText[j][i].place.bounding_box.coordinates[0].length + "," + long/profileText[j][i].place.bounding_box.coordinates[0].length);
                                             }
                                         }
+                                    }
+                                }
+
+                                //GET POST IMAGES
+                                if(profileText[j][i].entities.media && profileText[j][i].entities.media.length)
+                                {
+                                    if(imagesDownloaded < 20)
+                                    {
+                                        download(profileText[j][i].entities.media[0].media_url, './users/' + ID + '/images/' + i + '.jpg', function(){});
+                                        imagesDownloaded++;
                                     }
                                 }
                             
