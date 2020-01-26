@@ -43,6 +43,10 @@ module.exports =
                 }
             }
         }
+    },
+    get: function (array, count, callback)
+    {
+        callback(mostCommon(array, count));
     }
 }
 
