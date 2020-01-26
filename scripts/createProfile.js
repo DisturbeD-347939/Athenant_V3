@@ -386,10 +386,17 @@ function getBig5(callback)
     //Gets the information from the Personality Insight tool belonging to the Watson AI
     personalityInsights.profile(profileParams, function(error, profile) 
     {
-        if (error) //If there's an error we delete the whole account
+        if (error)
         {
-            console.log("FAILED! Error code - " + error.code);
-            callback(0);
+            console.log("FAILED! Error code - " + error);
+            if(fs.existsSync('./users/' + ID + '/watsonOutputRaw.json'))
+            {
+                callback(1);
+            }
+            else
+            {
+                callback(0);
+            }
         } 
         else //If everything works out well we take the big 5 traits and adjust them from 0-1 to 1-20
         { 
