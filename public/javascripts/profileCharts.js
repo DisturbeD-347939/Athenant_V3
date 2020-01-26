@@ -73,6 +73,7 @@ function personalityChart(data)
     for(var i = 0; i < big5.length; i++)
     {
         var singleTrait = big5[i].replace(" ", "");
+        $('#big5 > div').append("<div><p>" + big5[i] + "</p><div class='backgroundProgressBar'><div id='" + singleTrait + "progressBar'><p id='" + singleTrait + "percentile'></p></div></div></div>");
         $('#' + singleTrait + 'progressBar').width(data[i]*100 + '%');
         $('#' + singleTrait + 'percentile').text(Math.round(data[i]*100) + '%');
     }
@@ -100,7 +101,7 @@ function displayTimesWeek(update)
     {
         chartWeeks = new Chart(chart,
         {
-            type: 'bar',
+            type: 'radar',
             data: 
             {
                 labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
@@ -108,12 +109,32 @@ function displayTimesWeek(update)
                 [{
                     label: "Tweets per weekday in " + weekYear,
                     fill: false,
-                    borderColor: 'black',
-                    backgroundColor: '#E7DFC6',
+                    borderColor: '#E7DFC6',
+                    backgroundColor: 'black',
                     data: weekdays
                 }]
             },
             options: 
+            {
+                scale: 
+                {
+                    angleLines: 
+                    {
+                        display: false
+                    }
+                }
+            }
+        });
+    }
+    else
+    {
+        chartWeeks.options.legend.labels.fontColor = "#0000CD";
+        setTimeout(function(){ chartWeeks.options.legend.labels.fontColor = "#666666"; }, 500);
+        chartWeeks.data.datasets[0].label = "Tweets per weekday in " + weekYear;
+        chartWeeks.data.datasets[0].data = weekdays;
+        chartWeeks.update();
+    }
+}
             {
                 scales: 
                 {
