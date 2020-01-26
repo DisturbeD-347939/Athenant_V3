@@ -36,6 +36,10 @@ html
                     img.backYear(src="/images/backArrow.png" onclick='changeDate({id:twitterid, times:times, graph:"week", direction:"back"})')
                     canvas#timesWeekdaysChart
                     img.forwardYear(src="/images/forwardArrow.png" onclick='changeDate({id:twitterid, times:times, graph:"week", direction:"forward"})')
+                div#hourChart
+                    img.backYear(src="/images/backArrow.png" onclick='changeDate({id:twitterid, times:times, graph:"hour", direction:"back"})')
+                    canvas#timesHourChart
+                    img.forwardYear(src="/images/forwardArrow.png" onclick='changeDate({id:twitterid, times:times, graph:"hour", direction:"forward"})')
             div#heatmapMap
             div#wordCloud
                 canvas#wordCloudCanvas
