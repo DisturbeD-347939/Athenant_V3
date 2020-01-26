@@ -146,6 +146,14 @@ function analyzeImages(callback)
     })
 }
 
+function getCommonWords(ID)
+{
+    commonWords.getMostCommonWords(ID, function(data)
+    {
+        info.commonWords = data;
+    });
+}
+
 function getInfo(callback)
 {
     client.get('users/show', {screen_name: ID}, function(error, response)
