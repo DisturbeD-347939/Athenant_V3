@@ -9,16 +9,14 @@ html
       var error = #{error}
     script(src="javascripts/index.js")
     link(rel="shortcut icon", type="image/png", href="/images/favicon.png")
-  body
-
-    h1= title
-    p Welcome to #{title}
-
-          h2 Enter your Twitter Handle!
-          
-          p#error
-          form(method='POST' action='/result')
-            div.form-group
-              label(for='twitterid') @:
-              input#twitterid(type='text', placeholder='Username' name='twitterid')
-            button.btn.btn-primary(type='submit') Check your information!
+  body#index
+    div#startingPage
+      h1 Athenant
+      h2 Enter your Twitter Handle!
+      
+      p#error
+      form(method='POST' action='/result')
+        div.form-group
+          label(for='twitterid') @:
+          input#twitterid(type='text', placeholder='Username' name='twitterid')
+        button.btn.btn-primary(type='submit') Check your information!
