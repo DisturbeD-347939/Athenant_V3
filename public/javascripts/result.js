@@ -101,6 +101,15 @@ function setup()
 {
     getInfo(function(data)
     {
+        console.log(data);
+        if(data.birthday)
+        {
+            data.birthday[0] = data.birthday[0].split(" ");
+            if(data.birthday[0].length)
+            {
+                data.birthday[0] = data.birthday[0][2] + " " + data.birthday[0][1]; 
+            }
+        }
 
         var list = [];
         for(var i = 0; i < data.commonWords.length; i++)
