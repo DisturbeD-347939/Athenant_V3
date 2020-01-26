@@ -46,6 +46,10 @@ setInterval(function()
     $('#bannerPicture').css({top: 0, left:0});
     $('#bannerPicture').width($('#profile').width() + 80);
     $('#bannerPicture').height($('#profilePicture').height()/2 + 60);
+    $('#times > div > img').height($('#times > div > button').width());
+    $('#heatmapMap').height($('#heatmapMap').width()/2);
+    $('#wordCloudWords').height($('#wordCloudWords').width());
+    $('#wordCloudTags').height($('#wordCloudTags').width());
 }, 3000);
 
 $(window).resize(function()
@@ -54,6 +58,10 @@ $(window).resize(function()
     $('#bannerPicture').css({top: 0, left:0});
     $('#bannerPicture').width($('#profile').width() + 80);
     $('#bannerPicture').height($('#profilePicture').height()/2 + 60);
+    $('#times > div > img').height($('#times > div > button').width());
+    $('#heatmapMap').height($('#heatmapMap').width()/2);
+    $('#wordCloudWords').height($('#wordCloudWords').width());
+    $('#wordCloudTags').height($('#wordCloudTags').width());
 })
 
 $(document).ready(function() 
@@ -64,7 +72,8 @@ $(document).ready(function()
     $('#bannerPicture').height($('#profilePicture').height()/2 + 60);
     $('#times > div > img').height($('#times > div > button').width());
     $('#heatmapMap').height($('#heatmapMap').width()/2);
-    $('#wordCloudCanvas').height($('#wordCloudCanvas').width());
+    $('#wordCloudWords').height($('#wordCloudWords').width());
+    $('#wordCloudTags').height($('#wordCloudTags').width());
     $('#profile').css({position: 'sticky'});
     window.scrollTo(0, 0);
 
