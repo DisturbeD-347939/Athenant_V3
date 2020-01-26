@@ -353,6 +353,10 @@ function getTweets(callback)
 
                         setTimeout(function()
                         {
+                            if(birthday.length)
+                            {
+                                info.birthday = birthday;
+                            }
                             fs.writeFileSync('./users/' + ID + '/times.json', JSON.stringify(times));
                             outputText += "]}";
                             fs.writeFileSync('./users/' + ID + '/profile.json', outputText);
