@@ -1,6 +1,44 @@
 setTimeout(setup, 50);
 
 var images = [];
+var imageTags = [];
+
+setInterval(function()
+{
+    if(!imageTags.length)
+    {
+        $.ajax
+        ({
+            url: '/result',
+            type: 'GET',
+            contentType: "application/json",
+            data: {"imageTags": twitterid},
+            success(data)
+            {
+                if(data != 0)
+                {
+                    for(var i = 0; i < data.length; i++)
+                    {
+                        imageTags.push([data[i]["token"],data[i]["count"]]);
+                        if(i+1 >= data.length)
+                        {
+                            $('#wordCloudTags > h1').hide();
+                            $('#wordCloudTags').css("display", "block");
+                            console.log(imageTags);
+                            var chart = anychart.tagCloud(imageTags);
+                            chart.title(imageTags.length + ' most common words found by AI in pictures')// enable a color range
+                            chart.angles([0]);
+                            chart.colorRange().length('80%');
+                            chart.container("wordCloudTags");
+                            chart.draw();
+                            setImmediate(function(){ $('.anychart-credits').hide(); });
+                        }
+                    }
+                }
+            }
+        });
+    }
+}, 5000);
 
 setInterval(function()
 {
