@@ -39,15 +39,48 @@
     z-index: -1; }
   #profile #big5 {
     max-width: 100%; }
+    #profile #big5 div div:last-child {
+      grid-column: 1/3; }
+    #profile #big5 div div p:not(last-child) {
+      margin-bottom: 5px; }
     #profile #big5 div div {
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      margin: 0 auto; }
+      margin: 0px 5px; }
       #profile #big5 div div p {
         font-weight: bold;
         text-align: center; }
+  #profile #twitterUsername {
+    margin: 0; }
+  #profile #twitterHandle {
+    margin: 0; }
+  #profile #twitterHandle {
+    margin-bottom: 20px; }
+  #profile #userInfo {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    justify-content: center;
+    align-content: center; }
+    #profile #userInfo div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center; }
+    #profile #userInfo img {
+      width: 22%; }
 
+@media only screen and (max-width: 1599px) {
+  #big5 div {
+    display: flex;
+    flex-direction: column; } }
+@media only screen and (min-width: 1600px) {
+  #big5 div {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr); } }
 .backgroundProgressBar {
   width: 100%;
   background-color: #ddd; }
@@ -91,7 +124,13 @@
   border: 1px solid black;
   padding: 20px; }
 
-#wordCloud {
+#wordCloudWords {
+  width: 100%;
+  padding: 20px;
+  border: 1px solid black;
+  background-color: #FFFFFF; }
+
+#wordCloudTags {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -99,7 +138,5 @@
   padding: 20px;
   border: 1px solid black;
   background-color: #FFFFFF; }
-  #wordCloud canvas {
-    width: 10%; }
 
 /*# sourceMappingURL=style.css.map */
