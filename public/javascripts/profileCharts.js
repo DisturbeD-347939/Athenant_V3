@@ -1,9 +1,11 @@
 var currentYear = new Date().getFullYear();
 var monthYear = new Date().getFullYear();
 var weekYear = new Date().getFullYear();
+var hourYear = new Date().getFullYear();
 
 var chartWeeks;
 var chartMonths;
+var chartHour;
 
 var parsedTime;
 
@@ -15,10 +17,12 @@ function setupCharts(percentile, times)
     parseTimes(times, function(data){ parsedTime = data });
     displayTimesWeek(0);
     displayTimesMonth(0);
+    displayTimesHour(0);
 }
 
 function changeDate(data)
 {
+    
     if(data.graph == "month")
     {
         if(data.direction == "back")
@@ -31,11 +35,8 @@ function changeDate(data)
         }
         displayTimesMonth(1);
     }
-    else
+    else if(data.graph == "week")
     {
-        $('#timesWeekdaysChart').remove();
-        $('#weekChart > .chartjs-size-monitor').remove();
-        $("<canvas id='timesWeekdaysChart'>").insertAfter("#weekChart > img");
         if(data.direction == "back")
         {
             weekYear--;
@@ -45,6 +46,18 @@ function changeDate(data)
             weekYear++;
         }
         displayTimesWeek(1);
+    }
+    else if(data.graph == "hour")
+    {
+        if(data.direction == "back")
+        {
+            hourYear--;
+        }
+        else
+        {
+            hourYear++;
+        }
+        displayTimesHour(1);
     }
 }
 
@@ -60,7 +73,6 @@ function personalityChart(data)
     for(var i = 0; i < big5.length; i++)
     {
         var singleTrait = big5[i].replace(" ", "");
-        $('#big5 > div').append("<p>" + big5[i] + "</p><div class='backgroundProgressBar'><div id='" + singleTrait + "progressBar'><p id='" + singleTrait + "percentile'></p></div></div>");
         $('#' + singleTrait + 'progressBar').width(data[i]*100 + '%');
         $('#' + singleTrait + 'percentile').text(Math.round(data[i]*100) + '%');
     }
@@ -137,43 +149,40 @@ function displayTimesWeek(update)
 }
 
 function displayTimesMonth(update)
+function displayTimesHour(update)
 {
+    //TIMES PER HOUR
     times = parsedTime;
-    //TIMES PER MONTH
-    var monthCount = [0,0,0,0,0,0,0,0,0,0,0,0];
+    var hourCount = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    var possibilities = ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"];
     for(var i = 0; i < times.length; i++)
     {
-        if(times[i][1] == "Jan" && times[i][5] == monthYear) monthCount[0]++;
-        else if(times[i][1] == "Feb" && times[i][5] == monthYear) monthCount[1]++;
-        else if(times[i][1] == "Mar" && times[i][5] == monthYear) monthCount[2]++;
-        else if(times[i][1] == "Apr" && times[i][5] == monthYear) monthCount[3]++;
-        else if(times[i][1] == "May" && times[i][5] == monthYear) monthCount[4]++;
-        else if(times[i][1] == "Jun" && times[i][5] == monthYear) monthCount[5]++;
-        else if(times[i][1] == "Jul" && times[i][5] == monthYear) monthCount[6]++;
-        else if(times[i][1] == "Aug" && times[i][5] == monthYear) monthCount[7]++;
-        else if(times[i][1] == "Sep" && times[i][5] == monthYear) monthCount[8]++;
-        else if(times[i][1] == "Oct" && times[i][5] == monthYear) monthCount[9]++;
-        else if(times[i][1] == "Nov" && times[i][5] == monthYear) monthCount[10]++;
-        else if(times[i][1] == "Dec" && times[i][5] == monthYear) monthCount[11]++;
+        var extractHour = times[i][3][0] + times[i][3][1];
+        //console.log(extractHour);
+        
+        for(var j = 0; j < possibilities.length; j++)
+        {
+            if(extractHour == possibilities[j] && times[i][5] == hourYear) hourCount[j]++;
+        }
     }
 
-    var chart = document.getElementById('timesMonthChart');
+    var chart = document.getElementById('timesHourChart');
 
     if(!update)
     {
-        chartMonths = new Chart(chart,
+        chartHour = new Chart(chart,
         {
             type: 'line',
             data: 
             {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December',],
+                labels: ["12AM", "1AM", "2AM", "3AM", "4AM", "5AM", "6AM", "7AM", "8AM", "9AM", "10AM", "11AM", "12PM", "1PM", "2PM", "3PM", "4PM", "5PM", "6PM", "7PM", "8PM", "9PM", "10PM", "11PM"],
                 datasets: 
                 [{
-                    label: "Tweets per month in " + monthYear,
+                    label: "Tweets per hour in " + hourYear,
                     fill: false,
                     borderColor: '#2274A5',
                     backgroundColor: '131B23',
-                    data: monthCount
+                    data: hourCount
                 }]
             },
             options: 
@@ -205,9 +214,11 @@ function displayTimesMonth(update)
     }
     else
     {
-        chartMonths.data.datasets[0].label = "Tweets per month in " + monthYear;
-        chartMonths.data.datasets[0].data = monthCount;
-        chartMonths.update();
+        chartHour.options.legend.labels.fontColor = "#0000CD";
+        setTimeout(function(){ chartHour.options.legend.labels.fontColor = "#666666"; }, 500);
+        chartHour.data.datasets[0].label = "Tweets per hour in " + hourYear;
+        chartHour.data.datasets[0].data = hourCount;
+        chartHour.update();
     }
 }
 
