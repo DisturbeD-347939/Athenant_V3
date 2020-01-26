@@ -2,8 +2,11 @@ var PersonalityInsightsV3 = require('watson-developer-cloud/personality-insights
 var Twitter = require('twitter');
 var fs = require('fs');
 var request = require('request');
-
+var IR = require('../scripts/imageRecognition');
 var commonWords = require('../scripts/mostCommonWords');
+var main = require('../scripts/main');
+var path = require('path');
+var zipper = require('zip-local');
 
 //Variables
 var text = "";
