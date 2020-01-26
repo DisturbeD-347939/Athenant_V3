@@ -24,7 +24,6 @@ setInterval(function()
                         {
                             $('#wordCloudTags > h1').hide();
                             $('#wordCloudTags').css("display", "block");
-                            console.log(imageTags);
                             var chart = anychart.tagCloud(imageTags);
                             chart.title(imageTags.length + ' most common words found by AI in pictures')// enable a color range
                             chart.angles([0]);
@@ -101,7 +100,6 @@ function setup()
 {
     getInfo(function(data)
     {
-        console.log(data);
         if(data.birthday)
         {
             data.birthday[0] = data.birthday[0].split(" ");
@@ -141,7 +139,6 @@ function setup()
             list.push([data.commonWords[i]["token"], data.commonWords[i]["count"]]);
             if(i+1 >= data.commonWords.length)
             {
-                console.log(list);
                 var chart = anychart.tagCloud(list);
                 chart.title(list.length + ' most common words')// enable a color range
                 chart.angles([0]);
@@ -193,7 +190,6 @@ function getInfo(callback)
         data: {"getImages": twitterid},
         success(data)
         {
-            console.log(data);
             images = data;
             $('#profilePicture').attr('src', images[0]);
             if(images[4])

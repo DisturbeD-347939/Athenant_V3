@@ -11,7 +11,6 @@ var parsedTime;
 
 function setupCharts(percentile, times)
 {
-    console.log("Setting up charts");
     percentile = percentile.split(",");
     personalityChart(percentile);
     parseTimes(times, function(data){ parsedTime = data });
