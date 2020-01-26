@@ -135,6 +135,43 @@ function displayTimesWeek(update)
         chartWeeks.update();
     }
 }
+
+function displayTimesMonth(update)
+{
+    times = parsedTime;
+    //TIMES PER MONTH
+    var monthCount = [0,0,0,0,0,0,0,0,0,0,0,0];
+    var possibilities = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    for(var i = 0; i < times.length; i++)
+    {
+        var extractHour = times[i][1];
+        
+        for(var j = 0; j < possibilities.length; j++)
+        {
+            if(extractHour == possibilities[j] && times[i][5] == monthYear) monthCount[j]++;
+        }
+    }
+
+    var chart = document.getElementById('timesMonthChart');
+
+    if(!update)
+    {
+        chartMonths = new Chart(chart,
+        {
+            type: 'line',
+            data: 
+            {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December',],
+                datasets: 
+                [{
+                    label: "Tweets per month in " + monthYear,
+                    fill: false,
+                    borderColor: '#2274A5',
+                    backgroundColor: '131B23',
+                    data: monthCount
+                }]
+            },
+            options: 
             {
                 scales: 
                 {
@@ -163,13 +200,14 @@ function displayTimesWeek(update)
     }
     else
     {
-        chartWeeks.data.datasets[0].label = "Tweets per month in " + weekYear;
-        chartWeeks.data.datasets[0].data = weekdays;
-        chartWeeks.update();
+        chartMonths.options.legend.labels.fontColor = "#0000CD";
+        setTimeout(function(){ chartMonths.options.legend.labels.fontColor = "#666666"; }, 500);
+        chartMonths.data.datasets[0].label = "Tweets per month in " + monthYear;
+        chartMonths.data.datasets[0].data = monthCount;
+        chartMonths.update();
     }
 }
 
-function displayTimesMonth(update)
 function displayTimesHour(update)
 {
     //TIMES PER HOUR
