@@ -168,15 +168,14 @@ function setup()
 
         var heatmap = new google.maps.visualization.HeatmapLayer
         ({
-            
-          data: heatmapData
+            data: heatmapData
         });
 
         map = new google.maps.Map(document.getElementById('heatmapMap'), 
         {
-          center: new google.maps.LatLng(51.3811, 2.3590),
-          zoom: 2,
-          mapTypeId: 'roadmap',
+            center: new google.maps.LatLng(51.3811, 2.3590),
+            zoom: 2,
+            mapTypeId: 'roadmap',
         });
 
         heatmap.setMap(map);
