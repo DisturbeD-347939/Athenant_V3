@@ -277,12 +277,22 @@ function getTweets(callback)
 
                         var times = [];
                         var temp = [];
+                        var birthday = [];
 
                         //Take tweet text
                         for(var j = 0; j < profileText.length; j++)
                         {
                             for(var i = 0; i < profileText[j].length;   i++)
                             {
+                                //GET BIRTHDAY
+                                if(profileText[j][i]["text"].includes("happy birthday") || profileText[j][i]["text"].includes("hb!") || profileText[j][i]["text"].includes("hb") || profileText[j][i]["text"].includes("happy birthday!") || profileText[j][i]["text"].includes("happy bday") || profileText[j][i]["text"].includes("happy bday!"))
+                                {
+                                    if(profileText[j][i]["text"].includes('@' + ID))
+                                    {
+                                        birthday.push(profileText[j][i]["created_at"]);   
+                                    }
+                                }
+
                                 //GET TIMES
                                 times.push(profileText[j][i].created_at.split(" "));
                             
