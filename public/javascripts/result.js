@@ -141,7 +141,14 @@ function setup()
             list.push([data.commonWords[i]["token"], data.commonWords[i]["count"]]);
             if(i+1 >= data.commonWords.length)
             {
-                WordCloud(document.getElementById('wordCloudCanvas'), { list: list, fontWeight: 'bold', color: 'random-dark', wait: '100', shuffle: true, minSize: "30px"});
+                console.log(list);
+                var chart = anychart.tagCloud(list);
+                chart.title(list.length + ' most common words')// enable a color range
+                chart.angles([0]);
+                chart.colorRange().length('80%');
+                chart.container("wordCloudWords");
+                chart.draw();
+                setImmediate(function(){ $('.anychart-credits').hide(); });
             }
         }
 
