@@ -110,6 +110,30 @@ function setup()
                 data.birthday[0] = data.birthday[0][2] + " " + data.birthday[0][1]; 
             }
         }
+        
+        
+        $('#twitterUsername').html(data.name);
+        var dataCounter = 0;
+        var dataPoints = ["location", "birthday", "followers", "following", "posts", "likes"];
+        for(var i = 0; i < dataPoints.length; i++)
+        {
+            if(data[dataPoints[i]])
+            {
+                dataCounter++;
+                $('#userInfo').append("<div id='" + dataPoints[i] + "'><img src='/images/" + dataPoints[i] + ".png'><p>" + data[dataPoints[i]] + "</p><div>");
+            }
+        }
+
+        setTimeout(function()
+        {
+            $('#userInfo > img').height($('#userInfo > img').width());
+            $('#userInfo').css("grid-template-rows", "repeat(" + Math.round(dataCounter/2) + ", 1fr");
+            if(dataCounter%2)
+            {
+                $('#userInfo > div:first-child > img').css("width", "11%");
+                $('#userInfo > div:first-child').css("grid-column", "1/3");
+            }
+        }, 100);
 
         var list = [];
         for(var i = 0; i < data.commonWords.length; i++)
