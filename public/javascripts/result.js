@@ -156,7 +156,7 @@ function setup()
 
         if(!data.coordinates.length)
         {
-            $('#heatmap').hide();
+            $('#heatmapMap').hide();
         }
 
         for(var i = 0; i < data.coordinates.length; i++)
