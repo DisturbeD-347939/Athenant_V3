@@ -8,7 +8,7 @@ module.exports =
     {
         getTwitter(id, function(data)
         {
-            if(data)
+            if(data && fs.existsSync('./users/' + id + "/watsonOutputRaw.json"))
             {
                 var profile = JSON.parse(fs.readFileSync('./users/' + id + "/watsonOutputRaw.json"));
                 var times = JSON.parse(fs.readFileSync('./users/' + id + "/times.json"));
