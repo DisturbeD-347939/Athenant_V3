@@ -116,11 +116,13 @@ module.exports =
     }
 }
 
-function getCommonWords(ID)
+function parseImageTags()
 {
-    commonWords.getMostCommonWords(ID, function(data)
+    info.imageTags = info.imageTags.split(",");
+    commonWords.get(info.imageTags, 50, function(data)
     {
-        info.commonWords = data;
+        info.imageTags = data;
+        fs.writeFileSync('./users/' + ID + '/tags.json', JSON.stringify(info.imageTags));
     });
 }
 
