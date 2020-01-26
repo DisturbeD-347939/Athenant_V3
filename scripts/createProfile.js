@@ -68,17 +68,38 @@ module.exports =
             });
         }
 
+        console.log("Getting images from " + ID);
+        getImages(function()
+        {
+            console.log("Getting info from " + ID);
             getInfo(function(data)
             {
                 info = data;
-                getMentions();
-                getCommonWords(ID);
+                console.log("Getting tweets from " + ID);
                 getTweets(function()
                 {
+                    console.log("Getting common words from " + ID);
+                    getCommonWords(ID);
+                    console.log("Getting big5 words from " + ID);
                     getBig5(function(data)
                     {
                         if(data)
                         {
+                            //SAVE API CALLS
+                            setTimeout(function()
+                            {
+                                console.log("Zipping images");
+                                zipper.sync.zip("./users/" + ID + "/images/").compress().save("./users/" + ID + "/images.zip");
+                                setTimeout(function()
+                                {
+                                    console.log("Analyzing images from " + ID);
+                                    analyzeImages(function()
+                                    {
+                                        console.log("Parsing images");
+                                        parseImageTags();
+                                    });
+                                }, 1000)
+                            },2000);
                             fs.writeFileSync('./users/' + ID + '/info.json', JSON.stringify(info));
                             callback(1);
                         }
