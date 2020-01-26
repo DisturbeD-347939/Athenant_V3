@@ -59,6 +59,20 @@ router.get('/', function(req,res,next)
         var id = req.query.getInfo;
         res.send(JSON.parse(fs.readFileSync('./users/' + id + '/info.json')));
     }
+
+    if(req.query.imageTags)
+    {
+        var id = req.query.imageTags;
+        if(fs.existsSync('./users/' + id + '/tags.json'))
+        {
+            console.log("I exist");
+            res.send(JSON.parse(fs.readFileSync('./users/' + id + '/tags.json')));
+        }
+        else
+        {
+            res.send("0");
+        }
+    }
 })
 
 module.exports = router;
