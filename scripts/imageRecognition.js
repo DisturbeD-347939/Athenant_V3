@@ -4,32 +4,21 @@ const fs = require('fs');
 //IBM Visual Recognition module
 const VisualRecognitionV3 = require('watson-developer-cloud/visual-recognition/v3');
 
-function auth(callback)
-{
-    //Get files
-    var configFile = fs.readFileSync('./config.json');
-    var configData = JSON.parse(configFile);
-    var keyPath = configData.config[0].keys_path;
-    var credentials = fs.readFileSync(keyPath, 'utf-8');
-    var parsedCredentials = JSON.parse(credentials);
-
-    //Authentication into the Personality Insight API
-    var visualRecognition = new VisualRecognitionV3
-    ({
-        version: parsedCredentials.ibm[1].version,
-        iam_apikey: parsedCredentials.ibm[1].iam_apikey,
-        url: parsedCredentials.ibm[1].url,
-    });
-    callback(visualRecognition);
-}
-
-
+//Keys for authentication
+var Credentials = fs.readFileSync('./Keys.json', 'utf-8');
+var ParsedCredentials = JSON.parse(Credentials);
+//Authentication into the Personality Insight API
+var visualRecognition = new VisualRecognitionV3
+({
+    version: ParsedCredentials.ibm[3].version,
+    iam_apikey: ParsedCredentials.ibm[3].iam_apikey,
+    url: ParsedCredentials.ibm[3].url,
+});
 
 module.exports =
 {
     classify: function(path, callback)
     {
-        auth(function(visualRecognition)
         {
             var params = 
             {
