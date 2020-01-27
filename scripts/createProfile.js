@@ -37,6 +37,7 @@ var personalityInsights = new PersonalityInsightsV3
 
 module.exports = 
 {
+    //Add new user
     add: function(input, callback)
     {
         //USERNAME
@@ -48,6 +49,7 @@ module.exports =
             fs.mkdirSync('./users/' + ID);
         }
 
+        //Empty the /images folder in the user or create one
         if (!fs.existsSync('./users/' + ID + '/images'))
         {
             fs.mkdirSync('./users/' + ID + '/images');
@@ -110,12 +112,11 @@ module.exports =
                     })
                 })
             });
-        });
-        
-        
+        });   
     }
 }
 
+//Get tags from images
 function parseImageTags()
 {
     info.imageTags = info.imageTags.split(",");
@@ -126,26 +127,31 @@ function parseImageTags()
     });
 }
 
+//Create tags for the images
 function analyzeImages(callback)
 {
     info.imageTags = "";
-    IR.classify('./users/' + ID + '/images.zip', function(imageInfo)
+    if(fs.existsSync('./users/' + ID + '/images.zip'))
     {
-        IR.getTags(imageInfo, function(response)
+        IR.classify('./users/' + ID + '/images.zip', function(imageInfo)
         {
-            for(var i = 0; i < response.length; i++)
+            IR.getTags(imageInfo, function(response)
             {
-                info.imageTags += response[i] + ",";
-                if(i+1 >= response.length)
+                for(var i = 0; i < response.length; i++)
                 {
-                    console.log(info.imageTags);
-                    callback();
+                    info.imageTags += response[i] + ",";
+                    if(i+1 >= response.length)
+                    {
+                        console.log(info.imageTags);
+                        callback();
+                    }
                 }
-            }
+            })
         })
-    })
+    }
 }
 
+//Get the most common words in the text
 function getCommonWords(ID)
 {
     commonWords.getMostCommonWords(ID, function(data)
@@ -154,6 +160,7 @@ function getCommonWords(ID)
     });
 }
 
+//Get all the basic info
 function getInfo(callback)
 {
     client.get('users/show', {screen_name: ID}, function(error, response)
@@ -171,6 +178,7 @@ function getInfo(callback)
     });
 }
 
+//Get all the profile/banner images
 function getImages(callback)
 {
     var downloadStatus = [0,0,0,0];
@@ -232,6 +240,8 @@ function getTweets(callback)
     var id = 0;
     var allTweets = [];
     var outputText = "";
+
+    //Getting the last 1000 tweets from an user
     client.get('statuses/user_timeline', {screen_name: ID, count: '1000', include_rts: 'false'}, function(error, response)
     {   
         //Make them json
@@ -268,8 +278,6 @@ function getTweets(callback)
                         allTweets.push(profileText);
                         id = profileText[profileText.length-1].id;
 
-                        //console.log(allTweets[allTweets.length-1][allTweets[allTweets.length-1].length-1].created_at);
-
                         profileText = allTweets;
 
                         outputText += "{ \"contentItems\" : [\n\n";
@@ -278,8 +286,8 @@ function getTweets(callback)
                         var temp = [];
                         var birthday = [];
 
-                        //Take tweet text
                         console.log("Getting coordinates/images from " + ID);
+
                         for(var j = 0; j < profileText.length; j++)
                         {
                             for(var i = 0; i < profileText[j].length;   i++)
@@ -348,7 +356,7 @@ function getTweets(callback)
                                 outputText += ",\n";
                             }
                         }
-
+                        //Wait one second for the information to be processed and then write to files
                         setTimeout(function()
                         {
                             if(birthday.length)
@@ -374,6 +382,7 @@ function getTweets(callback)
     })
 }
 
+//Get big 5 using Watson AI
 function getBig5(callback)
 {
     //Prepare a request for the watson ai
@@ -408,6 +417,7 @@ function getBig5(callback)
     });
 }
 
+//Download documents/images of the internet
 function download(uri, filename, callback)
 {
     request.head(uri, function(err, res, body)

@@ -11,13 +11,13 @@ var app = express();
 /*************************************** SETUP **************************************************** */
 
 //MySQL
-var db = mysql.createConnection
+/*var db = mysql.createConnection
 ({
   host: "0.0.0.0",
   user: "root",
   password: null,
   database: "athenant"
-});
+});*/
 
 //Views
 app.set('views', path.join(__dirname, 'views'));
@@ -46,8 +46,8 @@ const server = app.listen(3000, () => {
 });
 
 //Database
-db.connect(function(err) 
+/*db.connect(function(err) 
 {
   if (err) throw err;
   console.log("Connected to the database!");
-});
+});*/

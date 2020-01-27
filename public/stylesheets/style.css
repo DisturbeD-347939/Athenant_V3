@@ -55,8 +55,7 @@
   #profile #twitterUsername {
     margin: 0; }
   #profile #twitterHandle {
-    margin: 0; }
-  #profile #twitterHandle {
+    margin: 0;
     margin-bottom: 20px; }
   #profile #userInfo {
     display: grid;
@@ -176,8 +175,6 @@
     color: #5FC3EC; }
   #startingPage label {
     color: black; }
-  #startingPage form {
-    margin: 0 auto; }
 
 #index {
   background-image: url("/images/spikes.png"); }

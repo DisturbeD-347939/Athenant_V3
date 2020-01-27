@@ -1,14 +1,16 @@
-var currentYear = new Date().getFullYear();
+//Variables for the years
 var monthYear = new Date().getFullYear();
 var weekYear = new Date().getFullYear();
 var hourYear = new Date().getFullYear();
 
+//Variables for the charts
 var chartWeeks;
 var chartMonths;
 var chartHour;
 
 var parsedTime;
 
+//Run all necessary functions at the start
 function setupCharts(percentile, times)
 {
     percentile = percentile.split(",");
@@ -19,6 +21,7 @@ function setupCharts(percentile, times)
     displayTimesHour(0);
 }
 
+//Update the charts
 function changeDate(data)
 {
     
@@ -60,15 +63,18 @@ function changeDate(data)
     }
 }
 
+//Create the big 5 personality bars
 function personalityChart(data)
 {
     for(var i = 0; i < data.length; i++)
     {
+        //Round the numbers
         data[i] = Math.round(data[i]*100)/100;
     }
 
     var big5 = ['Openness', 'Conscientiousness', 'Extraversion', 'Agreeableness', 'Emotional range'];
 
+    //Display the numbers
     for(var i = 0; i < big5.length; i++)
     {
         var singleTrait = big5[i].replace(" ", "");
@@ -78,26 +84,32 @@ function personalityChart(data)
     }
 }
 
+//Create tweets per week chart
 function displayTimesWeek(update)
 {
     times = parsedTime;
     //TIMES PER WEEKDAY
     var weekdays = [0,0,0,0,0,0,0];
+
+    //Count how many days are of each and if the year is the year selected
+    var possibilities = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
     for(var i = 0; i < times.length; i++)
     {
-        if(times[i][0] == "Mon" && times[i][5] == weekYear) weekdays[0]++;
-        else if(times[i][0] == "Tue" && times[i][5] == weekYear) weekdays[1]++;
-        else if(times[i][0] == "Wed" && times[i][5] == weekYear) weekdays[2]++;
-        else if(times[i][0] == "Thu" && times[i][5] == weekYear) weekdays[3]++;
-        else if(times[i][0] == "Fri" && times[i][5] == weekYear) weekdays[4]++;
-        else if(times[i][0] == "Sat" && times[i][5] == weekYear) weekdays[5]++;
-        else if(times[i][0] == "Sun" && times[i][5] == weekYear) weekdays[6]++;
+        var extractHour = times[i][0];
+        
+        for(var j = 0; j < possibilities.length; j++)
+        {
+            if(extractHour == possibilities[j] && times[i][5] == weekYear) weekdays[j]++;
+        }
     }
 
+    //Get the chart ID
     var chart = document.getElementById('timesWeekdaysChart');
 
+    //Create or update the chart
     if(!update)
     {
+        //Create chart
         chartWeeks = new Chart(chart,
         {
             type: 'radar',
@@ -106,6 +118,7 @@ function displayTimesWeek(update)
                 labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
                 datasets: 
                 [{
+                    //Display information on the chart
                     label: "Tweets per weekday in " + weekYear,
                     fill: false,
                     borderColor: '#E7DFC6',
@@ -117,6 +130,7 @@ function displayTimesWeek(update)
             {
                 scale: 
                 {
+                    //Remove unnecessary lines in the chart
                     angleLines: 
                     {
                         display: false
@@ -127,6 +141,7 @@ function displayTimesWeek(update)
     }
     else
     {
+        //Update charts with new year
         chartWeeks.options.legend.labels.fontColor = "#0000CD";
         setTimeout(function(){ chartWeeks.options.legend.labels.fontColor = "#666666"; }, 500);
         chartWeeks.data.datasets[0].label = "Tweets per weekday in " + weekYear;
@@ -135,6 +150,7 @@ function displayTimesWeek(update)
     }
 }
 
+//Same thing as previous chart
 function displayTimesMonth(update)
 {
     times = parsedTime;
@@ -176,11 +192,13 @@ function displayTimesMonth(update)
                 {
                     yAxes: 
                     [{
+                        //Make the numbers whole
                         ticks: 
                         {
                             beginAtZero: true,
                             precision:0
                         },
+                        //Remove grid lines
                         gridLines: 
                         {
                             color: "rgba(0, 0, 0, 0)",
@@ -188,6 +206,7 @@ function displayTimesMonth(update)
                     }],
                     xAxes:
                     {
+                        //Remove grid lines
                         gridLines: 
                         {
                             color: "rgba(0, 0, 0, 0)",
@@ -199,6 +218,7 @@ function displayTimesMonth(update)
     }
     else
     {
+        //Update the chart
         chartMonths.options.legend.labels.fontColor = "#0000CD";
         setTimeout(function(){ chartMonths.options.legend.labels.fontColor = "#666666"; }, 500);
         chartMonths.data.datasets[0].label = "Tweets per month in " + monthYear;
@@ -207,6 +227,7 @@ function displayTimesMonth(update)
     }
 }
 
+//Same as previous chart
 function displayTimesHour(update)
 {
     //TIMES PER HOUR
@@ -280,6 +301,7 @@ function displayTimesHour(update)
     }
 }
 
+//Transform the times string into an organized array
 function parseTimes(times, callback)
 {
     times = times.split(",");

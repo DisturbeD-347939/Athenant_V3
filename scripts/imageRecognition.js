@@ -17,6 +17,7 @@ var visualRecognition = new VisualRecognitionV3
 
 module.exports =
 {
+    //Classify the images into tags
     classify: function(path, callback)
     {
         var params = 
@@ -39,6 +40,7 @@ module.exports =
             }
         });
     },
+    //Parse the image classificators and create readable tags
     getTags: function(data, callback)
     {
         var tags = [];

@@ -5,6 +5,7 @@ sw = require('stopword')
 var moreCommon = ['i\'m', 'and', 'don\'t', 'is', 'you', '-', 'i\'ve', 'i', 'it\'s', 'can\'t', 'that\'s', '\'cause', 'you\'re', 'i\'ll'];
 module.exports = 
 {
+    //Get most common words from profile.json
     getMostCommonWords: function (id, callback)
     {
         var profileData = require('../users/' + id + '/profile.json');
@@ -44,12 +45,14 @@ module.exports =
             }
         }
     },
+    //Get most common word without going through the profile.json
     get: function (array, count, callback)
     {
         callback(mostCommon(array, count));
     }
 }
 
+//Remove common words
 function removeCommonWords(words) 
 {
     common.forEach(function(obj) 

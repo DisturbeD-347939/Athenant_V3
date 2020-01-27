@@ -1,5 +1,6 @@
 $colour: #FFFFFF;
 
+//Center content and add background
 #bodyResults
 {
     display: flex;
@@ -14,6 +15,7 @@ $colour: #FFFFFF;
     background-image: url('/images/spikes.png');
 }
 
+//MCenter content and define sizes and borders
 #profile   
 {
     display: flex;
@@ -30,6 +32,7 @@ $colour: #FFFFFF;
     left: 40px;
     margin-right: 20px;
 
+    //Align the picture to the center and define a border and border radius
     #profilePicture
     {
         align-self: center;
@@ -40,6 +43,7 @@ $colour: #FFFFFF;
         border: 3px white solid;
     }
 
+    //Position the banner behind the profile picture
     #bannerPicture
     {
         position: absolute;
@@ -50,6 +54,7 @@ $colour: #FFFFFF;
         z-index: -1;
     }
 
+    //Style the big 5 bars
     #big5
     {
         max-width: 100%;
@@ -88,10 +93,6 @@ $colour: #FFFFFF;
     #twitterHandle
     {
         margin: 0;
-    }
-
-    #twitterHandle
-    {
         margin-bottom: 20px;
     }
 
@@ -118,6 +119,7 @@ $colour: #FFFFFF;
     }
 }
 
+//Change the big5 position if screen width is smaller than 1599px
 @media only screen and (max-width: 1599px) 
 {
     #big5 div
@@ -127,6 +129,7 @@ $colour: #FFFFFF;
     }
 }
 
+//Change the big5 position if screen width is larger than 1600px
 @media only screen and (min-width: 1600px) 
 {
     #big5 div
@@ -137,6 +140,7 @@ $colour: #FFFFFF;
     }
 }
 
+//Style bars from the big 5
 .backgroundProgressBar
 {
     width: 100%;
@@ -150,6 +154,7 @@ $colour: #FFFFFF;
     }
 }
 
+//Style the results side of the page
 #results
 {
     display: flex;
@@ -162,6 +167,7 @@ $colour: #FFFFFF;
     }
 }
 
+//Style the way the 3 top graphs are displayed
 #times
 {
     display: flex;
@@ -195,6 +201,7 @@ $colour: #FFFFFF;
     }
 }
 
+//Style the heatmap
 #heatmapMap
 {
     height: 300px;
@@ -203,6 +210,7 @@ $colour: #FFFFFF;
     padding: 20px;
 }
 
+//Style the word cloud chart about the most common words
 #wordCloudWords
 {
     width: 100%;
@@ -211,6 +219,7 @@ $colour: #FFFFFF;
     background-color: $colour;
 }
 
+//Style the word cloud chart about the most common words from images
 #wordCloudTags
 {
     display: flex;
@@ -222,6 +231,7 @@ $colour: #FFFFFF;
     background-color: $colour;
 }
 
+//Style the homepage
 #startingPage
 {
     display: flex;
@@ -270,10 +280,6 @@ $colour: #FFFFFF;
         color: black;
     }
 
-    form
-    {
-        margin: 0 auto;
-    }
 }
 
 #index

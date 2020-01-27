@@ -11,6 +11,7 @@ module.exports =
         return "data:image/png;base64," + Buffer.from(bitmap).toString('base64');
     },
 
+    //Transform a big number into a more readable one
     formatNumber: function(number)
     {
         number = number.toString();
