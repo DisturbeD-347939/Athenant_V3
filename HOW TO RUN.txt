@@ -1,0 +1,5 @@
+Install NodeJS
+NPM all the necessary libraries that are in the headers
+Navigate to the folder using the CMD
+Run it using "nodemon app --ignore Users"
+Head to localhost:3000 on a browser
