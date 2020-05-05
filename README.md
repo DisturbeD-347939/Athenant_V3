@@ -15,6 +15,18 @@ This project was created as an **artefact** to my **dissertation** at University
 This project is **finished**!
 
 ---
+## **Technologies used**
+Back-End:
+  1. NodeJS
+  2. Express
+  3. Npm
+  
+Front-end:
+  1. Javascript(JQuery)
+  2. SCSS
+  3. Pug/Jade
+
+---
 ## **Installation**
 To run the web app just make a **copy** of the repository within your computer and be sure to have [NodeJS installed](https://nodejs.org/en/download/) too!
 
