@@ -8,8 +8,7 @@ It retrieves only public information available on the target's Twitter. With thi
 
 The most important bit of this search is the graphs that come along with it, there are graphs displaying the **times of the day** a user in online, the **times of the week he's online** and even the **location** of where the user sends the tweets from. There's also a cloudword with the **most common used words** on the targets profile.
 
-![](https://imgur.com/2sH5T51)
-![](https://imgur.com/l71euiN)
+**Images** can be found [here](https://imgur.com/a/9gwJLuN)
 
 This project was created as an **artefact** to my **dissertation** at University. It's meant to show how much public information we have out in the Internet and how harmful it can be if used in the wrong hands.
 
